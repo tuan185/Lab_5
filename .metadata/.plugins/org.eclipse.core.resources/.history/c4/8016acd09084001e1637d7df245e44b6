@@ -1,0 +1,66 @@
+/*
+ * LList.c
+ *
+ *  Created on: Nov 16, 2023
+ *      Author: Admin
+ */
+#include "LList.h"
+
+struct Node* createNode(Task_TypeDef_t data){
+	struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+	if(!newNode){
+		//TODO
+	}
+	newNode->data.callback = data.callback;
+	newNode->data.Delay = data.Delay;
+	newNode->data.Period = data.Period;
+	newNode->nextNode = NULL;
+	return newNode;
+};
+
+//Task_TypeDef_t* getTask(uint8_t index, struct Node* head){
+//	uint8_t cur_index = 0;
+//	struct Node* temp = head;
+//	while(cur_index < index && temp != NULL){
+//		cur_index++;
+//		temp = temp->nextNode;
+//	}
+//	if(temp != NULL){
+//		return *temp;
+//	}
+//	return 0;
+//};
+
+void addTask(struct Node** head, Task_TypeDef_t data){
+	struct Node* newNode = createNode(data);
+	if(head == NULL){
+		*head = newNode;
+		return;
+	}
+	struct Node* temp = *head;
+	if( newNode->data.Delay < temp->data.Delay){
+		temp->data.Delay -= newNode->Delay;
+		newNode->nextNode = temp;
+		*head = newNode;
+		return;
+	}
+
+	newNode->data.Delay -= temp->data.Delay;
+	while(temp->nextNode == NULL || temp->nextNode->data.Delay > data.Delay){
+		temp = temp->nextNode;
+		newNode->data.Delay -= temp->data.Delay
+	}
+
+	if(temp->nextNode == NULL){
+		temp->nextNode = newNode;
+	}else{
+		newNode->nextNode = temp->nextNode;
+		temp->nextNode = newNode;
+	}
+};
+
+void deleteTask(struct Node** head){
+	struct Node* temp = *head;
+	*head = temp->nextNode;
+	free(temp);
+};

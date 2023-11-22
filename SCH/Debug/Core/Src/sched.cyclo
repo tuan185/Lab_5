@@ -1,0 +1,6 @@
+sched.c:13:6:SCH_Init	1
+sched.c:19:6:SCH_Add_Task	1
+sched.c:29:6:SCH_Report_Status	1
+sched.c:33:6:SCH_Go_to_Sleep	1
+sched.c:37:6:SCH_Update	3
+sched.c:46:6:SCH_Dispatch_Tasks	3
